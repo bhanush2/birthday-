@@ -78,9 +78,9 @@
 
         const messages = [
             "Oh, you clicked!",
-            "Slowly click again...",
-            "No no, you clicked fast!",
-            "You’ll never beat Bhanush!",
+            "Too Slow 🤫 click again...",
+            "No no, you clicked fast! Now",
+            "You’ll never beat Bhanush! 😎",
             "Who do you love most?"
         ];
 
@@ -88,32 +88,32 @@
             msg.innerText = messages[step];
             step++;
         } else if (step === messages.length) {
-            msg.innerText = "Noddy or Bhanush?";
+            msg.innerText = "Nody or Bhanush?";
             btn.style.display = "none";
 
-            const noddyBtn = document.createElement('button');
-            noddyBtn.innerText = "Noddy";
-            noddyBtn.className = "optionBtn";
-            noddyBtn.onclick = chooseNoddy;
+            const nodyBtn = document.createElement('button');
+            nodyBtn.innerText = "Nody";
+            nodyBtn.className = "optionBtn";
+            nodyBtn.onclick = chooseNody;
 
             const bhanushBtn = document.createElement('button');
             bhanushBtn.innerText = "Bhanush";
             bhanushBtn.className = "optionBtn";
             bhanushBtn.onclick = chooseBhanush;
 
-            document.body.appendChild(noddyBtn);
+            document.body.appendChild(nodyBtn);
             document.body.appendChild(bhanushBtn);
 
             step++;
         }
     }
 
-    function chooseNoddy() {
-        updateAfterChoice("So you don’t love Bhanush? Not fair... click here", "noddy");
+    function chooseNody() {
+        updateAfterChoice("So you don’t love Bhanush? Not fair... click here", "nody");
     }
 
     function chooseBhanush() {
-        updateAfterChoice("You forgot about Noddy? So bad... click here", "bhanush");
+        updateAfterChoice("You forgot about Nody? So bad... click here", "bhanush");
     }
 
     function updateAfterChoice(message, chosen) {
@@ -139,7 +139,7 @@
         btns.forEach(btn => btn.remove());
 
         let petMessages = [
-            "Hi Mom, it's me Noddy! You give the best belly rubs! 🐶💕",
+            "Hi Mom, it's me Nody! You give the best belly rubs! 🐶💕",
             "Hey, Bhanush here. I’m still the favorite, right? 😎🎉"
         ];
 
@@ -165,7 +165,8 @@
         const music = document.getElementById('birthdaySong');
 
         title.innerText = "🎉 Surprise! 🎉";
-        msg.innerText = "Happy Birthday Mom! Love you so much — From Noddy & Bhanush 💖🐾";
+        msg.innerText = "Happy Birthday Mom! Love you so much — From Nody & Bhanush 💖🐾";
+        <img src="IMG_4316.jpg" alt="My Pet" width="300">
         dog.style.display = "block";
         music.play();
 
