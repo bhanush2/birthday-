@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Just a Fun Page</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #fdf6e3;
+            text-align: center;
+            padding: 50px;
+            overflow-x: hidden;
+        }
+
+        #message {
+            font-size: 24px;
+            margin: 20px;
+            color: #333;
+        }
+
+        #clickButton, .optionBtn {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #ff69b4;
+            border: none;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        #clickButton:hover, .optionBtn:hover {
+            background-color: #ff1493;
+        }
+
+        #dogImage {
+            display: none;
+            margin-top: 30px;
+            max-width: 80%;
+            border-radius: 15px;
+        }
+
+        #balloons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background-image: url('https://i.ibb.co/wW4x2q4/balloons-bg.png');
+            background-repeat: repeat;
+            background-size: cover;
+            opacity: 0.15;
+        }
+    </style>
+</head>
+<body>
+
+<div id="balloons"></div>
+
+<h1 id="title">Welcome!</h1>
+<p id="message">Click me</p>
+<button id="clickButton" onclick="handleClick()">Click Here</button>
+<img id="dogImage" src="IMG_4316.jpeg" alt="Noddy the Dog"/>
+<audio id="birthdaySong" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+    let step = 0;
+
+    function handleClick() {
+        const msg = document.getElementById('message');
+        const btn = document.getElementById('clickButton');
+
+        const messages = [
+            "Oh, you clicked!",
+            "Slowly click again...",
+            "No no, you clicked fast!",
+            "You’ll never beat Bhanush!",
+            "Who do you love most?"
+        ];
+
+        if (step < messages.length) {
+            msg.innerText = messages[step];
+            step++;
+        } else if (step === messages.length) {
+            msg.innerText = "Noddy or Bhanush?";
+            btn.style.display = "none";
+
+            const noddyBtn = document.createElement('button');
+            noddyBtn.innerText = "Noddy";
+            noddyBtn.className = "optionBtn";
+            noddyBtn.onclick = chooseNoddy;
+
+            const bhanushBtn = document.createElement('button');
+            bhanushBtn.innerText = "Bhanush";
+            bhanushBtn.className = "optionBtn";
+            bhanushBtn.onclick = chooseBhanush;
+
+            document.body.appendChild(noddyBtn);
+            document.body.appendChild(bhanushBtn);
+
+            step++;
+        }
+    }
+
+    function chooseNoddy() {
+        updateAfterChoice("So you don’t love Bhanush? Not fair... click here", "noddy");
+    }
+
+    function chooseBhanush() {
+        updateAfterChoice("You forgot about Noddy? So bad... click here", "bhanush");
+    }
+
+    function updateAfterChoice(message, chosen) {
+        const msg = document.getElementById('message');
+        msg.innerText = message;
+
+        const buttons = document.querySelectorAll(".optionBtn");
+        buttons.forEach(btn => btn.remove());
+
+        const continueBtn = document.createElement('button');
+        continueBtn.innerText = "Click Here";
+        continueBtn.className = "optionBtn";
+        continueBtn.onclick = function() {
+            showMessagesFromPets(chosen);
+        };
+
+        document.body.appendChild(continueBtn);
+    }
+
+    function showMessagesFromPets(chosen) {
+        const msg = document.getElementById('message');
+        const btns = document.querySelectorAll(".optionBtn");
+        btns.forEach(btn => btn.remove());
+
+        let petMessages = [
+            "Hi Mom, it's me Noddy! You give the best belly rubs! 🐶💕",
+            "Hey, Bhanush here. I’m still the favorite, right? 😎🎉"
+        ];
+
+        let i = 0;
+
+        function showNextPetMessage() {
+            if (i < petMessages.length) {
+                msg.innerText = petMessages[i];
+                i++;
+                setTimeout(showNextPetMessage, 2000);
+            } else {
+                setTimeout(showFinalMessage, 1500);
+            }
+        }
+
+        showNextPetMessage();
+    }
+
+    function showFinalMessage() {
+        const msg = document.getElementById('message');
+        const title = document.getElementById('title');
+        const dog = document.getElementById('dogImage');
+        const music = document.getElementById('birthdaySong');
+
+        title.innerText = "🎉 Surprise! 🎉";
+        msg.innerText = "Happy Birthday Mom! Love you so much — From Noddy & Bhanush 💖🐾";
+        dog.style.display = "block";
+        music.play();
+
+        // Confetti
+        confetti({
+            particleCount: 200,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+    }
+</script>
+
+</body>
+</html>
