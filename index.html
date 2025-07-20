@@ -2,59 +2,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Just a Fun Page</title>
-    <style>
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #fdf6e3;
-            text-align: center;
-            padding: 50px;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <title>Just a Fun Page</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #fdf6e3;
+      text-align: center;
+      padding: 50px;
+      overflow-x: hidden;
+    }
 
-        #message {
-            font-size: 24px;
-            margin: 20px;
-            color: #333;
-        }
+    #message {
+      font-size: 24px;
+      margin: 20px;
+      color: #333;
+    }
 
-        #clickButton, .optionBtn {
-            padding: 15px 30px;
-            font-size: 20px;
-            background-color: #ff69b4;
-            border: none;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 10px;
-        }
+    #clickButton, .optionBtn {
+      padding: 15px 30px;
+      font-size: 20px;
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+    }
 
-        #clickButton:hover, .optionBtn:hover {
-            background-color: #ff1493;
-        }
+    #clickButton:hover, .optionBtn:hover {
+      background-color: #ff1493;
+    }
 
-        #dogImage {
-            display: none;
-            margin-top: 30px;
-            max-width: 80%;
-            border-radius: 15px;
-        }
+    #dogImage {
+      display: none;
+      margin-top: 30px;
+      max-width: 80%;
+      border-radius: 15px;
+    }
 
-        #balloons {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            background-image: url('https://i.ibb.co/wW4x2q4/balloons-bg.png');
-            background-repeat: repeat;
-            background-size: cover;
-            opacity: 0.15;
-        }
-    </style>
+    #balloons {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      background-image: url('https://i.ibb.co/wW4x2q4/balloons-bg.png');
+      background-repeat: repeat;
+      background-size: cover;
+      opacity: 0.15;
+    }
+  </style>
 </head>
 <body>
 
@@ -64,129 +64,126 @@
 <p id="message">Click me</p>
 <button id="clickButton" onclick="handleClick()">Click Here</button>
 <img id="dogImage" src="IMG_4316.jpeg" alt="Noddy the Dog"/>
-<audio id="birthdaySong" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<audio id="bday-audio">
+  <source src="Baar Baar Din Ye Aaye (From Farz).mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
 <!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-    let step = 0;
+  let step = 0;
 
-    function handleClick() {
-        const msg = document.getElementById('message');
-        const btn = document.getElementById('clickButton');
+  function handleClick() {
+    const msg = document.getElementById('message');
+    const btn = document.getElementById('clickButton');
 
-        const messages = [
-            "Oh, you clicked!",
-            "Too Slow 🤫 click again...",
-            "No no, you clicked fast! Now",
-            "You’ll never beat Bhanush! 😎",
-            "Who do you love most?"
-        ];
+    const messages = [
+      "Oh, you clicked!",
+      "Too Slow 🤫 click again...",
+      "No no, you clicked fast! Now",
+      "You’ll never beat Bhanush! 😎",
+      "Who do you love most?"
+    ];
 
-        if (step < messages.length) {
-            msg.innerText = messages[step];
-            step++;
-        } else if (step === messages.length) {
-            msg.innerText = "Nody or Bhanush?";
-            btn.style.display = "none";
+    if (step < messages.length) {
+      msg.innerText = messages[step];
+      step++;
+    } else if (step === messages.length) {
+      msg.innerText = "Nody or Bhanush?";
+      btn.style.display = "none";
 
-            const nodyBtn = document.createElement('button');
-            nodyBtn.innerText = "Nody";
-            nodyBtn.className = "optionBtn";
-            nodyBtn.onclick = chooseNody;
+      const nodyBtn = document.createElement('button');
+      nodyBtn.innerText = "Nody";
+      nodyBtn.className = "optionBtn";
+      nodyBtn.onclick = chooseNody;
 
-            const bhanushBtn = document.createElement('button');
-            bhanushBtn.innerText = "Bhanush";
-            bhanushBtn.className = "optionBtn";
-            bhanushBtn.onclick = chooseBhanush;
+      const bhanushBtn = document.createElement('button');
+      bhanushBtn.innerText = "Bhanush";
+      bhanushBtn.className = "optionBtn";
+      bhanushBtn.onclick = chooseBhanush;
 
-            document.body.appendChild(nodyBtn);
-            document.body.appendChild(bhanushBtn);
+      document.body.appendChild(nodyBtn);
+      document.body.appendChild(bhanushBtn);
 
-            step++;
-        }
+      step++;
+    }
+  }
+
+  function chooseNody() {
+    updateAfterChoice("So you don’t love Bhanush? Not fair... click here", "nody");
+  }
+
+  function chooseBhanush() {
+    updateAfterChoice("You forgot about Nody? So bad... click here", "bhanush");
+  }
+
+  function updateAfterChoice(message, chosen) {
+    const msg = document.getElementById('message');
+    msg.innerText = message;
+
+    const buttons = document.querySelectorAll(".optionBtn");
+    buttons.forEach(btn => btn.remove());
+
+    const continueBtn = document.createElement('button');
+    continueBtn.innerText = "Click Here";
+    continueBtn.className = "optionBtn";
+    continueBtn.onclick = function () {
+      showMessagesFromPets(chosen);
+    };
+
+    document.body.appendChild(continueBtn);
+  }
+
+  function showMessagesFromPets(chosen) {
+    const msg = document.getElementById('message');
+    const btns = document.querySelectorAll(".optionBtn");
+    btns.forEach(btn => btn.remove());
+
+    let petMessages = [
+      "Hi Mom, it's me Nody! You give the best belly rubs! 🐶💕",
+      "Hey, Bhanush here. I’m still the favorite, right? 😎🎉"
+    ];
+
+    let i = 0;
+
+    function showNextPetMessage() {
+      if (i < petMessages.length) {
+        msg.innerText = petMessages[i];
+        i++;
+        setTimeout(showNextPetMessage, 2000);
+      } else {
+        setTimeout(showFinalMessage, 1500);
+      }
     }
 
-    function chooseNody() {
-        updateAfterChoice("So you don’t love Bhanush? Not fair... click here", "nody");
-    }
+    showNextPetMessage();
+  }
 
-    function chooseBhanush() {
-        updateAfterChoice("You forgot about Nody? So bad... click here", "bhanush");
-    }
+  function showFinalMessage() {
+    const msg = document.getElementById('message');
+    const title = document.getElementById('title');
+    const dog = document.getElementById('dogImage');
+    const music = document.getElementById('bday-audio');
 
-    function updateAfterChoice(message, chosen) {
-        const msg = document.getElementById('message');
-        msg.innerText = message;
+    title.innerText = "🎉 Surprise! 🎉";
+    msg.innerText = "Happy Birthday Mom! Love you so much — From Nody & Bhanush 💖🐾";
 
-        const buttons = document.querySelectorAll(".optionBtn");
-        buttons.forEach(btn => btn.remove());
+    dog.style.display = "block";
 
-        const continueBtn = document.createElement('button');
-        continueBtn.innerText = "Click Here";
-        continueBtn.className = "optionBtn";
-        continueBtn.onclick = function() {
-            showMessagesFromPets(chosen);
-        };
+    // Play music starting at 1.66 seconds
+    music.currentTime = 1.66;
+    music.play();
 
-        document.body.appendChild(continueBtn);
-    }
-
-    function showMessagesFromPets(chosen) {
-        const msg = document.getElementById('message');
-        const btns = document.querySelectorAll(".optionBtn");
-        btns.forEach(btn => btn.remove());
-
-        let petMessages = [
-            "Hi Mom, it's me Nody! You give the best belly rubs! 🐶💕",
-            "Hey, Bhanush here. I’m still the favorite, right? 😎🎉"
-        ];
-
-        let i = 0;
-
-        function showNextPetMessage() {
-            if (i < petMessages.length) {
-                msg.innerText = petMessages[i];
-                i++;
-                setTimeout(showNextPetMessage, 2000);
-            } else {
-                setTimeout(showFinalMessage, 1500);
-            }
-        }
-
-        showNextPetMessage();
-    }
-
-    function showFinalMessage() {
-        const msg = document.getElementById('message');
-        const title = document.getElementById('title');
-        const dog = document.getElementById('dogImage');
-        const music = document.getElementById('birthdaySong');
-
-        title.innerText = "🎉 Surprise! 🎉";
-        msg.innerText = "Happy Birthday Mom! Love you so much — From Nody & Bhanush 💖🐾";
-        <img src="IMG_4316.jpg" alt="My Pet" width="300">
-        <audio id="bday-audio">
-  <source src="Baar Baar Din Ye Aaye (From Farz).mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
-<script>
-  const audio = document.getElementById('bday-audio');
-  let played = false;
-
-  window.addEventListener('scroll', () => {
-    if (!played && (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-      audio.currentTime = 1.66;
-      audio.play();
-      played = true;
-    }
-  });
-</script>
-      
-        });
-    }
+    // 🎉 Confetti celebration!
+    confetti({
+      particleCount: 150,
+      spread: 90,
+      origin: { y: 0.6 }
+    });
+  }
 </script>
 
 </body>
