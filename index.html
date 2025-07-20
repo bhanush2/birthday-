@@ -167,6 +167,23 @@
         title.innerText = "🎉 Surprise! 🎉";
         msg.innerText = "Happy Birthday Mom! Love you so much — From Nody & Bhanush 💖🐾";
         <img src="IMG_4316.jpg" alt="My Pet" width="300">
+        <audio id="bday-audio">
+  <source src="birthday.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  const audio = document.getElementById('bday-audio');
+  let played = false;
+
+  window.addEventListener('scroll', () => {
+    if (!played && (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      audio.currentTime = 1.66;
+      audio.play();
+      played = true;
+    }
+  });
+</script>
         dog.style.display = "block";
         music.play();
 
